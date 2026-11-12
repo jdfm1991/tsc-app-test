@@ -1,0 +1,272 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>XPuesto · Deck</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { --navy:#0A274F; --navy2:#14355F; --ink2:#4B5A78; --ink3:#8B96AD; --naranja:#FB5E17; --soft:#FFF0E8; --pill:#F1F2F5; --line:#E4E6EC; --ok:#1E9E5A; --ok-soft:#E4F6EC; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #fff; color: var(--navy); font-family: "Inter", system-ui, sans-serif; font-weight: 500; }
+  .lamina { width: 1920px; height: 1080px; overflow: hidden; position: relative; page-break-after: always; break-after: page; padding: 72px 110px 90px; display: flex; flex-direction: column; background: #fff; }
+  .lamina:last-child { page-break-after: auto; }
+  .lamina.centro { justify-content: center; padding-bottom: 120px; }
+  h1 { font-size: 92px; font-weight: 900; letter-spacing: -0.03em; line-height: 1; margin: 0; }
+  h2 { font-size: 50px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.08; margin: 0 0 14px; max-width: 1500px; }
+  h3 { font-size: 26px; font-weight: 800; margin: 0 0 6px; }
+  p { margin: 0; font-size: 22px; line-height: 1.4; color: var(--ink2); }
+  .eyebrow { font-size: 18px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--naranja); margin-bottom: 18px; }
+  .num { position: absolute; right: 120px; bottom: 56px; font-size: 18px; font-weight: 700; color: var(--ink3); }
+  .marca { position: absolute; left: 120px; bottom: 48px; height: 34px; }
+  .fila { display: flex; gap: 36px; align-items: flex-start; flex: 1; min-height: 0; }
+  .col { flex: 1; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+  .tel { width: 250px; height: 541px; border-radius: 36px; overflow: hidden; box-shadow: 0 30px 60px rgba(10,39,79,.22); border: 8px solid #101A2B; background: #fff; flex: none; }
+  .tel img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .tel.g { width: 320px; height: 692px; }
+  .tel.p { width: 220px; height: 476px; border-width: 7px; border-radius: 30px; }
+  .pc { border-radius: 16px; overflow: hidden; box-shadow: 0 30px 60px rgba(10,39,79,.22); border: 1.5px solid var(--line); }
+  .pc img { width: 100%; display: block; }
+  .tarjeta { background: #fff; border: 2px solid var(--line); border-radius: 22px; padding: 22px 26px; }
+  .tarjeta.naranja { background: var(--soft); border-color: #FFD2BB; }
+  .tarjeta.navy { background: var(--navy); border-color: var(--navy); color: #fff; } .tarjeta.navy p { color: #C9D3E6; }
+  .tarjeta.ok { background: var(--ok-soft); border-color: #BFE8D0; }
+  ul { margin: 0; padding-left: 26px; } li { font-size: 22px; line-height: 1.38; color: var(--ink2); margin-bottom: 6px; } li b { color: var(--navy); }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .kpi { display: flex; flex-direction: column; gap: 4px; }
+  .kpi b { font-size: 60px; font-weight: 900; letter-spacing: -0.03em; line-height: 1; color: var(--naranja); }
+  .kpi small { font-size: 20px; color: var(--ink2); font-weight: 600; }
+  .paso { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+  .paso .n { width: 44px; height: 44px; border-radius: 50%; background: var(--naranja); color: #fff; font-weight: 900; font-size: 22px; display: grid; place-items: center; }
+  .paso p { font-size: 20px; }
+  table { border-collapse: collapse; width: 100%; font-size: 21px; }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 2px solid var(--line); vertical-align: top; }
+  th { font-size: 18px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink3); }
+  td b { font-weight: 800; } td.r, th.r { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.total td { border-bottom: 0; background: var(--soft); font-weight: 800; }
+  .sup { font-size: 18px; color: var(--ink3); font-weight: 600; margin-top: 12px; }
+  .barra { display: flex; height: 44px; border-radius: 12px; overflow: hidden; margin: 18px 0 8px; }
+  .barra i { display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 20px; font-style: normal; }
+  .ley { display: flex; gap: 26px; flex-wrap: wrap; } .ley span { font-size: 20px; font-weight: 700; color: var(--ink2); display: flex; align-items: center; gap: 8px; } .ley i { width: 16px; height: 16px; border-radius: 4px; display: inline-block; }
+  .etapa { display: grid; grid-template-columns: 60px 1fr; gap: 18px; align-items: start; }
+  .etapa .n { width: 60px; height: 60px; border-radius: 50%; background: var(--navy); color: #fff; font-weight: 900; font-size: 26px; display: grid; place-items: center; }
+  .etapa.on .n { background: var(--naranja); }
+  .pillx { display: inline-block; font-size: 18px; font-weight: 800; padding: 6px 14px; border-radius: 999px; background: var(--soft); color: var(--naranja); margin-bottom: 10px; }
+  .pillx.ok { background: var(--ok-soft); color: var(--ok); }
+  .portada { background: linear-gradient(90deg, #fff 0%, #fff 46%, rgba(255,255,255,0) 70%), url("img/portada.jpg") center right / cover no-repeat; }
+  .portada .logo { height: 96px; width: auto; align-self: flex-start; margin-bottom: 44px; }
+  .lamina > img, .lamina > .pc, .lamina > .tel { align-self: flex-start; }
+  .cierre { background: var(--navy); color: #fff; } .cierre h2, .cierre h3 { color: #fff; } .cierre p, .cierre li { color: #C9D3E6; } .cierre li b { color: #fff; }
+  .cierre .tarjeta { background: var(--navy2); border-color: #2C3A57; }
+  .cierre .naranja { color: #FF8A52; }
+</style>
+</head>
+<body>
+
+<!-- 1. PORTADA -->
+<section class="lamina portada">
+  <img class="logo" src="img/logo.png" alt="XPuesto">
+  <h1 style="max-width: 820px;">Tu puesto.<br>Tu destino.</h1>
+  <p style="max-width: 760px; margin-top: 30px; font-size: 32px; color: var(--navy); font-weight: 600;">La primera red digital del carro por puesto interurbano en Venezuela.</p>
+  <p style="max-width: 700px; margin-top: 18px;">Reserva por puesto, equipaje con foto, paradas virtuales seguras y un chofer verificado. Una app para el pasajero, otra para el chofer, y el backoffice que lo ve todo.</p>
+  <p style="position: absolute; left: 120px; bottom: 56px; font-size: 20px; color: var(--ink3); font-weight: 700;">Presentación para inversionistas · Septiembre 2026 · Venezuela</p>
+</section>
+
+<!-- 2. PROBLEMA -->
+<section class="lamina centro">
+  <div class="eyebrow">El problema</div>
+  <h2>Cada día salen miles de carros por puesto de los terminales del país. Ninguno deja un dato.</h2>
+  <div class="grid3" style="margin-top: 30px;">
+    <div class="tarjeta"><h3>El pasajero</h3><ul><li>Espera horas sin saber a qué hora sale el carro.</li><li>Terminales inseguros, puntos informales.</li><li>No sabe cuánto cuesta ni quién maneja.</li><li>Si pierde el equipaje, no hay a quién reclamar.</li></ul></div>
+    <div class="tarjeta"><h3>El chofer</h3><ul><li>Pierde horas esperando llenar el carro.</li><li>Sale con 2 o 3 puestos y no le rinde.</li><li>Todo en efectivo, sin registro, sin crédito.</li><li>Sin protección legal si algo pasa a bordo.</li></ul></div>
+    <div class="tarjeta"><h3>El sistema</h3><ul><li>Fragmentado e informal: nadie lo ve completo.</li><li>Sin trazabilidad: ni de viajes, ni de dinero, ni de personas.</li><li>Terminales congestionados y costosos.</li><li>Imposible de escalar así.</li></ul></div>
+  </div>
+  <div class="tarjeta navy" style="margin-top: 32px;"><p style="font-size: 30px; color: #fff; font-weight: 700;">Uber y Ridery resolvieron la ciudad. Entre ciudades, el carro por puesto sigue exactamente igual que hace 40 años.</p></div>
+  <img class="marca" src="img/logo.png" alt=""><div class="num">2</div>
+</section>
+
+<!-- 3. SOLUCIÓN -->
+<section class="lamina">
+  <div class="eyebrow">La solución</div>
+  <h2>Tres piezas que se hablan entre sí. Ya construidas y funcionando en el prototipo que tienen en la mano.</h2>
+  <div class="fila" style="margin-top: 10px; align-items: flex-start;">
+    <div class="col" style="align-items: center; text-align: center;"><div class="tel"><img src="img/salidas.jpg" alt=""></div><h3>App Pasajero</h3><p style="font-size: 22px;">Busca la ruta, elige la hora, aparta su puesto exacto, declara el equipaje y paga. Sigue el viaje en vivo.</p></div>
+    <div class="col" style="align-items: center; text-align: center;"><div class="tel"><img src="img/chofer-hoy.jpg" alt=""></div><h3>App Conductor</h3><p style="font-size: 22px;">Publica horarios, toma rutas ya llenas, marca «Ya llegué», fotografía el maletero y cobra a su billetera.</p></div>
+    <div class="col" style="align-items: center; text-align: center;"><div class="pc" style="width: 540px; margin-top: 120px;"><img src="img/admin-mapa.jpg" alt=""></div><h3 style="margin-top: 10px;">Backoffice</h3><p style="font-size: 22px;">Mapa nacional en vivo, choferes y documentos, central SOS, caja y comisiones. Todo trazable.</p></div>
+  </div>
+  <img class="marca" src="img/logo.png" alt=""><div class="num">3</div>
+</section>
+
+<!-- 4. EL VIAJE DEL PASAJERO -->
+<section class="lamina centro">
+  <div class="eyebrow">Cómo funciona</div>
+  <h2>De «¿pa' dónde vas?» al boleto en cuatro toques.</h2>
+  <div class="grid4" style="margin-top: 26px;">
+    <div class="paso"><div class="tel p"><img src="img/inicio.jpg" alt=""></div><div class="n">1</div><p><b>Busca</b><br>Origen, destino, fecha, hora y tipo de carro.</p></div>
+    <div class="paso"><div class="tel p"><img src="img/puesto.jpg" alt=""></div><div class="n">2</div><p><b>Elige su puesto</b><br>Ve el carro con los cuatro puestos. El que aparta, se lo queda.</p></div>
+    <div class="paso"><div class="tel p"><img src="img/equipaje.jpg" alt=""></div><div class="n">3</div><p><b>Declara el equipaje</b><br>Con foto. El maletero se llena y bloquea lo que no cabe.</p></div>
+    <div class="paso"><div class="tel p"><img src="img/listo.jpg" alt=""></div><div class="n">4</div><p><b>Boleto</b><br>Billetera o Pago Móvil. Se cobra sólo cuando el carro se llena.</p></div>
+  </div>
+  <img class="marca" src="img/logo.png" alt=""><div class="num">4</div>
+</section>
+
+<!-- 5. MECÁNICAS -->
+<section class="lamina">
+  <div class="eyebrow">Lo que nadie más tiene</div>
+  <h2>Cuatro mecánicas hechas para el carro por puesto, no copiadas del taxi urbano.</h2>
+  <div class="fila" style="margin-top: 20px;">
+    <div class="col">
+      <div class="tarjeta"><h3>Puesto por puesto</h3><p>El carro tiene cuatro puestos y cada uno se vende por separado. Copiloto, atrás izquierda, centro o derecha. Una familia aparta tres con nombre.</p></div>
+      <div class="tarjeta"><h3>«Faltan 2 puestos»</h3><p>Si no se llena, el pasajero decide: esperar, comprar los que faltan o compartir el costo. El chofer nunca sale a pérdida.</p></div>
+      <div class="tarjeta"><h3>Equipaje con doble foto</h3><p>El pasajero fotografía su maleta al reservar; el chofer, al cerrar el maletero. Evidencia digital que protege al chofer y a la plataforma.</p></div>
+      <div class="tarjeta"><h3>Paradas virtuales</h3><p>Centros comerciales, bombas, farmacias. El pasajero espera seguro e iluminado, el comercio gana tráfico, el terminal deja de hacer falta.</p></div>
+    </div>
+    <div class="tel g"><img src="img/viaje-llenando.jpg" alt=""></div>
+    <div class="tel g"><img src="img/dos-puestos.jpg" alt=""></div>
+  </div>
+  <img class="marca" src="img/logo.png" alt=""><div class="num">5</div>
+</section>
+
+<!-- 6. EL CHOFER -->
+<section class="lamina">
+  <div class="eyebrow">El chofer</div>
+  <h2>Sale lleno, sale pago y deja de esperar en el terminal.</h2>
+  <div class="fila" style="margin-top: 20px;">
+    <div class="tel g"><img src="img/chofer-bolsa.jpg" alt=""></div>
+    <div class="tel g"><img src="img/chofer-liquidacion.jpg" alt=""></div>
+    <div class="col">
+      <ul>
+        <li><b>Bolsa de trabajo:</b> rutas con los cuatro puestos ya pagos. El primero que la toma, se la lleva.</li>
+        <li><b>Demanda visible:</b> «3 personas piden Caracas → Valencia a las 5 pm». Publica y sale casi lleno.</li>
+        <li><b>Liquidación automática</b> a su billetera con la comisión descontada. Si cobra efectivo, la comisión sale del saldo prepago.</li>
+        <li><b>XPuntos</b> por rutas aceptadas, viajes y estrellas: prioridad en la bolsa, RCV con descuento y, más adelante, carro a crédito.</li>
+        <li><b>Verificado:</b> cédula, RIF, licencia, certificado médico, carnet e inspección presencial. Membresía con kit y etiquetas oficiales.</li>
+      </ul>
+      <div class="tarjeta naranja"><p style="font-size: 22px;"><b style="color: var(--navy);">Estimado por chofer en Caracas–Valencia:</b> 2 vueltas al día × 4 puestos × $12 = $96 brutos. Le quedan $81,60 al día tras la comisión. Supuesto a validar en el piloto.</p></div>
+    </div>
+  </div>
+  <img class="marca" src="img/logo.png" alt=""><div class="num">6</div>
+</section>
+
+<!-- 7. SEGURIDAD -->
+<section class="lamina">
+  <div class="eyebrow">Seguridad y confianza</div>
+  <h2>Cada viaje deja rastro: quién manejó, quién viajó, qué llevaba y por dónde fue.</h2>
+  <div class="fila" style="margin-top: 20px;">
+    <div class="col">
+      <div class="grid2">
+        <div class="tarjeta"><h3>Para el pasajero</h3><ul><li>Chofer verificado con foto, carro y placa.</li><li>GPS durante todo el viaje.</li><li>Botón SOS y chat dentro de la app.</li><li>Reputación bilateral.</li></ul></div>
+        <div class="tarjeta"><h3>Para la operación</h3><ul><li>Alertas automáticas: desvío, parada larga, pérdida de señal.</li><li>Central SOS con protocolo paso a paso.</li><li>Fotos, horarios y paradas guardadas por viaje.</li><li>Sanciones y suspensiones desde el backoffice.</li></ul></div>
+      </div>
+      <div class="pc" style="width: 760px;"><img src="img/admin-sos.jpg" alt=""></div>
+    </div>
+    <div class="tel g"><img src="img/sos.jpg" alt=""></div>
+  </div>
+  <img class="marca" src="img/logo.png" alt=""><div class="num">7</div>
+</section>
+
+<!-- 8. MONETIZACIÓN -->
+<section class="lamina">
+  <div class="eyebrow">Cómo gana XPuesto</div>
+  <h2>Seis fuentes de ingreso sobre la misma red. La comisión paga la operación; el resto es margen.</h2>
+  <div class="fila" style="margin-top: 20px;">
+    <div class="col">
+      <table>
+        <tr><th>Fuente</th><th>Cómo</th><th class="r">Cuándo</th></tr>
+        <tr><td><b>Comisión por puesto</b></td><td>10 % a 20 % de cada puesto vendido. Base: 15 %.</td><td class="r">Desde el día 1</td></tr>
+        <tr><td><b>Billetera prepago</b></td><td>El chofer que cobra efectivo carga saldo; la comisión se debita sola.</td><td class="r">Desde el día 1</td></tr>
+        <tr><td><b>Membresía del chofer</b></td><td>Validación, kit de seguridad, etiquetas, RCV aliado. ~$15 al mes.</td><td class="r">Piloto</td></tr>
+        <tr><td><b>Premium y VIP</b></td><td>Puerta a puerta, carro exclusivo, ejecutivo, familias. Precio mayor, comisión mayor.</td><td class="r">Piloto</td></tr>
+        <tr><td><b>Publicidad y alianzas</b></td><td>Comercios que son parada virtual pagan por el tráfico y los banners.</td><td class="r">Etapa 2</td></tr>
+        <tr><td><b>Cargo · Corporate · Tourism · Fleet</b></td><td>Encomiendas, cuentas empresa, turismo y flotas propias sobre la misma red.</td><td class="r">Etapa 3</td></tr>
+      </table>
+    </div>
+    <div class="pc" style="width: 600px; flex: none;"><img src="img/admin-caja.jpg" alt=""></div>
+  </div>
+  <img class="marca" src="img/logo.png" alt=""><div class="num">8</div>
+</section>
+
+<!-- 9. UNIT ECONOMICS -->
+<section class="lamina">
+  <div class="eyebrow">Los números de una ruta</div>
+  <h2>Caracas – Valencia, la ruta piloto. Supuestos claros, para validar en 90 días.</h2>
+  <div class="fila" style="margin-top: 20px;">
+    <div class="col">
+      <table>
+        <tr><th>Concepto</th><th class="r">Valor</th></tr>
+        <tr><td>Precio por puesto</td><td class="r"><b>$12</b></td></tr>
+        <tr><td>Carro lleno (4 puestos)</td><td class="r">$48</td></tr>
+        <tr><td>Comisión XPuesto por viaje (15 %)</td><td class="r"><b>$7,20</b></td></tr>
+        <tr><td>Vueltas por chofer al día</td><td class="r">2</td></tr>
+        <tr><td>Comisión por chofer al día</td><td class="r">$14,40</td></tr>
+        <tr><td>Choferes activos en el piloto</td><td class="r"><b>150</b></td></tr>
+        <tr><td>Comisión al día</td><td class="r">$2.160</td></tr>
+        <tr class="total"><td>Comisión al mes (26 días)</td><td class="r">$56.160</td></tr>
+        <tr><td>Membresías (150 × $15)</td><td class="r">$2.250</td></tr>
+        <tr class="total"><td>Ingreso mensual del piloto</td><td class="r">≈ $58.400</td></tr>
+      </table>
+      <p class="sup">Supuestos: ocupación completa, 2 vueltas, 26 días. Con 60 % de ocupación real el ingreso baja a ≈ $35.000 al mes. Ambos escenarios cubren la operación del piloto.</p>
+    </div>
+    <div class="col" style="flex: .8;">
+      <div class="tarjeta naranja kpi"><b>$7,20</b><small>que gana XPuesto por cada carro que sale lleno</small></div>
+      <div class="tarjeta kpi"><b>$0</b><small>de inversión en terminales, carros o choferes. Son de los aliados y de la red.</small></div>
+      <div class="tarjeta kpi"><b>+41</b><small>paradas virtuales meta en el piloto: comercios que ponen el espacio y ganan tráfico</small></div>
+    </div>
+  </div>
+  <img class="marca" src="img/logo.png" alt=""><div class="num">9</div>
+</section>
+
+<!-- 10. EXPANSIÓN -->
+<section class="lamina centro">
+  <div class="eyebrow">Ruta de expansión</div>
+  <h2>Una ruta primero. Después el centro del país. Después, la red nacional.</h2>
+  <div class="fila" style="margin-top: 20px; align-items: center;">
+    <div class="col" style="flex: 1.1;">
+      <div class="etapa on"><div class="n">1</div><div><span class="pillx">Meses 1 – 3</span><h3>Piloto Caracas – Valencia</h3><p>150 choferes certificados, 20 paradas virtuales, app en producción con pagos reales. Validar ocupación, precio y comisión.</p></div></div>
+      <div class="etapa"><div class="n">2</div><div><span class="pillx">Meses 4 – 9</span><h3>Región Centro y Centro-occidente</h3><p>Maracay, Barquisimeto, Puerto La Cruz. Rutas de alta demanda y alianzas con cadenas de comercios.</p></div></div>
+      <div class="etapa"><div class="n">3</div><div><span class="pillx">Meses 10 – 18</span><h3>Cobertura nacional</h3><p>Red de paradas virtuales y choferes certificados en los principales estados. Cargo, Corporate y Tourism sobre la misma red.</p></div></div>
+    </div>
+    <div class="col" style="align-items: center;"><div class="tarjeta" style="padding: 20px;"><img src="img/venezuela.jpg" style="width: 640px; display: block;" alt="Mapa de Venezuela"></div><p style="font-size: 20px; text-align: center;">Rutas activas en el backoffice del prototipo</p></div>
+  </div>
+  <img class="marca" src="img/logo.png" alt=""><div class="num">10</div>
+</section>
+
+<!-- 11. VENTAJA -->
+<section class="lamina centro">
+  <div class="eyebrow">Por qué nosotros, por qué ahora</div>
+  <h2>El prototipo ya existe. La infraestructura de identidad y dinero ya cobra en producción.</h2>
+  <div class="grid3" style="margin-top: 26px;">
+    <div class="tarjeta ok"><span class="pillx ok">Listo hoy</span><h3>Prototipo completo</h3><p>Las tres apps que están viendo: pasajero, conductor y backoffice. Diseñadas para el teléfono, instalables, con todas las mecánicas del negocio.</p></div>
+    <div class="tarjeta ok"><span class="pillx ok">Probado con dinero real</span><h3>Identidad y pagos</h3><p>El equipo ya opera en producción, en otro producto propio con miles de usuarios venezolanos: KYC con cédula, billetera, Pago Móvil con conciliación automática, referidos, chat, notificaciones y paneles de administración. XPuesto los hereda.</p></div>
+    <div class="tarjeta"><span class="pillx">Con la inversión</span><h3>MVP operativo</h3><p>Cuentas, reservas, cruce de horarios, GPS, pagos y central SOS reales sobre esa base. Estimado: 10 a 12 semanas desde el cierre hasta el primer viaje pago en Caracas – Valencia.</p></div>
+  </div>
+  <div class="tarjeta navy" style="margin-top: 30px;"><p style="font-size: 28px; color: #fff; font-weight: 700;">Categoría nueva: no competimos con Uber ni Ridery. Digitalizamos un mercado que hoy no tiene dueño y que mueve a millones de venezolanos entre ciudades.</p></div>
+  <img class="marca" src="img/logo.png" alt=""><div class="num">11</div>
+</section>
+
+<!-- 12. EL PEDIDO -->
+<section class="lamina cierre">
+  <div class="eyebrow">El pedido</div>
+  <h2>Buscamos <span class="naranja">$[monto]</span> para lanzar el piloto Caracas – Valencia y llegar a la región Centro con datos reales.</h2>
+  <div class="fila" style="margin-top: 20px;">
+    <div class="col">
+      <h3>En qué se usa</h3>
+      <div class="barra"><i style="flex: 40; background: #FB5E17;">40 %</i><i style="flex: 25; background: #F2A93B;">25 %</i><i style="flex: 15; background: #4FC98A;">15 %</i><i style="flex: 15; background: #6C8CD5;">15 %</i><i style="flex: 5; background: #8B96AD;">5 %</i></div>
+      <div class="ley"><span><i style="background: #FB5E17;"></i>Desarrollo del MVP real</span><span><i style="background: #F2A93B;"></i>Operación del piloto: inspección, kits, RCV aliado</span><span><i style="background: #4FC98A;"></i>Paradas virtuales y alianzas</span><span><i style="background: #6C8CD5;"></i>Lanzamiento y captación de choferes</span><span><i style="background: #8B96AD;"></i>Reserva</span></div>
+      <h3 style="margin-top: 30px;">Qué medimos a los 90 días</h3>
+      <ul><li><b>150 choferes</b> certificados y activos.</li><li><b>Ocupación promedio</b> por salida y tiempo hasta llenar.</li><li><b>Puestos vendidos</b> por día y comisión real.</li><li><b>Cero incidentes</b> sin trazabilidad.</li></ul>
+    </div>
+    <div class="col">
+      <h3>Equipo</h3>
+      <div class="tarjeta"><b style="font-size: 26px;">[Nombre] · Dirección y visión del negocio</b><p>[Trayectoria en transporte / comercio / operaciones]</p></div>
+      <div class="tarjeta"><b style="font-size: 26px;">[Nombre] · Operaciones y alianzas</b><p>[Terminales, comercios, choferes]</p></div>
+      <div class="tarjeta"><b style="font-size: 26px;">Raúl Rodríguez · Producto y tecnología</b><p>Construyó y opera en producción plataformas con pagos reales para el mercado venezolano. Autor del prototipo de XPuesto.</p></div>
+      <p style="margin-top: 16px; font-size: 22px;">Contacto: [teléfono] · [correo] · xpuesto.app</p>
+    </div>
+  </div>
+  <img class="marca" src="img/logo-blanco.png" alt=""><div class="num" style="color: #9FB0CF;">12</div>
+</section>
+
+</body>
+</html>
